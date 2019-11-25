@@ -53,7 +53,7 @@ let connection = mongoose.connect(DB, {useNewUrlParser:true, useUnifiedTopology:
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname, 'client/build')))
-app.get('/client', (req,res) => res.sendFile(path.join(__dirname+'client/build/index.html')))
+app.get('*', (req,res) => res.sendFile(path.join(__dirname+'client/build/index.html')))
 
 app.route('/api/overall')
     .post( async(req,res) => {
