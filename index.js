@@ -5,6 +5,13 @@ const app = require('express')()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const shortid = require('shortid')
+const cors = require('cors')
+const morgan = require('morgan')
+
+app.use(cors())
+app.use(morgan('dev'))
+
+console.log(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'development') {
     const cors = require('cors')
@@ -29,10 +36,12 @@ let recordingSchema = new mongoose.Schema({
 })
 
 let overallSchema = new mongoose.Schema({
-    category: String,
-    value: Number,
-    recording_id: String,
-    shortid: String
+    overall: Number,
+    abdPain: Number, 
+    bloating: Number,
+    wind: Number,
+    notes: String,
+    recording_id: String
 })
 
 let Overall = new mongoose.model('Overall', overallSchema)
@@ -45,32 +54,14 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 app.route('/overall')
     .post( async(req,res) => {
-        let { category, value, recording_id} = req.body
-        
-        const exists = await Overall.findOne({category:category, recording_id:recording_id})
-        
-        if( exists ){
-            exists.set( {value:value} )
-            let updatedDoc = await exists.save()
-            res.json({
-                status: 'updated',
-                document: updatedDoc
-            })
-        }
-
-        else {
-            const newOverall = new Overall({
-                category: category, 
-                value: value,
-                recording_id: recording_id,
-                shortid: `overall_${shortid.generate()}`
-            })
-    
-            saved = await newOverall.save()
-            res.json({
-                status:'created',
-                document: saved
-            })
+        console.log(req.body.recording_id)
+        const exists = await Overall.findOne({recording_id:req.body.recording_id})
+        if (exists) {
+            let updatedOverall = await exists.set({...req.body})
+            res.json(updatedOverall)
+        } else {
+            let newOverall = await new Overall({...req.body}).save()
+            res.json(newOverall)
         }
     })
     .get( async(req,res) => {
@@ -105,17 +96,28 @@ app.route('/recording')
 
 app.route('/symptom')
     .post( async(req,res) => {
-        let {symptom, notes, location, count, recording_id} = req.body
+        let {symptom, notes, location, count, recording_id, severity} = req.body
+        
+        if (symptom === '') symptom=undefined
+        if (notes === '') notes=undefined
+        if (location === '') location=undefined
+        if (count === '') count=undefined
+        if (recording_id === '') recording_id=undefined
+        if (severity === '') severity=undefined
+
         console.log(symptom, notes, location)
-        console.log(req.body)
 
         newData = new Symptom({
             symptom:symptom, 
             notes:notes, 
             location:location, 
             count:count||1, 
-            shortid:`symptom_${shortid.generate()}`
+            shortid:`symptom_${shortid.generate()}`,
+            recording_id: recording_id,
+            severity:severity,
         })
+
+        console.log(newData)
         
         saved = await newData.save()
         res.json(saved)
