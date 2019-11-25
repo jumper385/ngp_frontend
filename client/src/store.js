@@ -1,6 +1,5 @@
 import { createStore } from 'redux'
 import { combineReducers  } from 'redux'
-import axios from 'axios'
 
 const baseFunctions = (state = {}, action) => {
     switch(action.type){

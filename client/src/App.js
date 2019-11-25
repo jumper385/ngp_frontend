@@ -14,7 +14,8 @@ class App extends Component {
       this.props.ADD_DEV_URL(DEV_URL)
     }
     if (process.env.NODE_ENV === 'production'){
-      let URL = process.env.PORT
+      let URL = 'api'
+      console.log(URL)
       this.props.ADD_DEV_URL(URL)
     }
   }

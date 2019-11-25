@@ -23,7 +23,7 @@ class Recording extends Component {
         if (this.props.recording.isRecording){
             this.props.STOP_RECORDING()
         } else {
-            let {data} = await axios.post(`${this.props.baseFunctions.base_url}/recording`)
+            let {data} = await axios.post(`api/recording`)
             this.props.START_RECORDING(data)
         }
 
@@ -37,7 +37,7 @@ class Recording extends Component {
     
     onSubmitSymptom = async e => {
         e.preventDefault()
-        let { data } = await axios.post(`${this.props.baseFunctions.base_url}/symptom`, this.props.newLog)
+        let { data } = await axios.post(`api/symptom`, this.props.newLog)
         data = {...data, recording_id:this.props.recording.recording_id}
         this.props.APPEND_LOG(data)
     }

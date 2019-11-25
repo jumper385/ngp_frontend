@@ -1,14 +1,15 @@
 let PORT = process.env.PORT || 8080
 let DB = process.env.MONGO_URI || 'mongodb+srv://nova:st18chenh@cluster0-ztrfz.azure.mongodb.net/ngpdb?retryWrites=true&w=majority'
 
-const app = require('express')()
+const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const shortid = require('shortid')
 const cors = require('cors')
 const morgan = require('morgan')
+const path = require('path')
 
-app.use(cors())
+const app = express()
 app.use(morgan('dev'))
 
 console.log(process.env.NODE_ENV)
@@ -51,8 +52,10 @@ let connection = mongoose.connect(DB, {useNewUrlParser:true, useUnifiedTopology:
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.static(path.join(__dirname, 'client/build')))
+app.get('/client', (req,res) => res.sendFile(path.join(__dirname+'client/build/index.html')))
 
-app.route('/overall')
+app.route('/api/overall')
     .post( async(req,res) => {
         console.log(req.body.recording_id)
         const exists = await Overall.findOne({recording_id:req.body.recording_id})
@@ -69,20 +72,20 @@ app.route('/overall')
         res.json(docs)
     })
 
-app.route('/overall/:id')
+app.route('/api/overall/:id')
     .delete(async(req,res) => {
         const exists = await Overall.findOne({shortid:req.params.id})
         if (exists) await exists.remove()
         res.json(exists ? 'deleted overall rating...' : 'couldnt find it bruv')
     })
 
-app.route('/overall/:recording_id')
+app.route('/api/overall/:recording_id')
     .get( async(req,res) => {
         const docs = await Overall.find({recording_id: req.params.recording_id})
         res.json(docs)
     } )
 
-app.route('/recording')
+app.route('/api/recording')
     .post( async(req,res) => {
         newRecording = new Recording({
             shortid: `recording_${shortid.generate()}`,
@@ -94,7 +97,7 @@ app.route('/recording')
         res.json('hello world')
     })
 
-app.route('/symptom')
+app.route('/api/symptom')
     .post( async(req,res) => {
         let {symptom, notes, location, count, recording_id, severity} = req.body
         
@@ -123,7 +126,7 @@ app.route('/symptom')
         res.json(saved)
     })
 
-app.route('/symptom/:id')
+app.route('/api/symptom/:id')
     .get( async(req,res) => {
         const doc = await Symptom.findOne({shortid:req.params.id})
         res.json(doc)

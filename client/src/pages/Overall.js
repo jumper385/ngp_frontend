@@ -28,7 +28,7 @@ class Overall extends Component {
         e.preventDefault()
         let recording_id = {recording_id:this.props.recording.recording_id}
         let overallSubmission = await axios.post(
-            `${this.props.baseFunctions.base_url}/overall`,
+            `api/overall`,
             {...recording_id, ...this.state}
         )
         overallSubmission ? console.log('DONE', overallSubmission) : console.log('SOMETHING WENT WRONG...')
