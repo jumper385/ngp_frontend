@@ -11,6 +11,7 @@ const path = require('path')
 
 const app = express()
 app.use(morgan('dev'))
+app.use(cors())
 
 console.log(process.env.NODE_ENV)
 
@@ -53,7 +54,7 @@ let connection = mongoose.connect(DB, {useNewUrlParser:true, useUnifiedTopology:
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname, 'client/build')))
-app.get('*', (req,res) => res.sendFile(path.join(__dirname+'client/build/index.html')))
+app.get('/client', (req,res) => res.sendFile(path.join(__dirname+'client/build/index.html')))
 
 app.route('/api/overall')
     .post( async(req,res) => {
