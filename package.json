@@ -4,11 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.7.10",
-    "nodemon": "^2.0.0"
+    "nodemon": "^2.0.0",
+    "shortid": "^2.2.15"
   },
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "dev":"concurrently \"NODE_ENV=development PORT=8080 nodemon\" \" cd client && PORT=8081 yarn start\" "
   }
 }
