@@ -56,15 +56,15 @@ class App extends Component {
             <Title>The Noisy Guts Project</Title>
           </Banner>
   
-          <NavBar>
+          {/* <NavBar>
             <StyleLink to='/'>Home</StyleLink>
             <StyleLink to='/recording'>Start Recording</StyleLink>
             <StyleLink to='/'>Some Random Link</StyleLink>
             <StyleLink to='/'>Like and Sub 👍</StyleLink>
-          </NavBar>
+          </NavBar> */}
   
           <Switch>
-            <Route exact path='/'><h1>START RECORDING</h1></Route> 
+            <Route exact path='/'><Recording /></Route> 
             <Route exact path='/recording'> <Recording /></Route> 
             <Route exact path='/overall'> <Overall /></Route>
           </Switch>
