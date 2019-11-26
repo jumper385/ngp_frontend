@@ -122,7 +122,7 @@ class Recording extends Component {
         return(
             <div>
                 <PageHeader>
-                    <PageTitle>Log Recording 🎙</PageTitle>
+                    <PageTitle>🎙🎧📑</PageTitle>
                     <PrimaryButton onClick={this.toggleRecording}>{this.props.recording.isRecording ? <Icon className="material-icons">stop</Icon>: <Icon className="material-icons">fiber_manual_record</Icon>}</PrimaryButton>
                     <RecordingId>Recording ID: {this.props.recording.isRecording ? this.props.recording.recording_id : 'not recording'}</RecordingId>
                 </PageHeader>
