@@ -78,7 +78,7 @@ class App extends Component {
             <Route exact path='/overall'> <Overall /></Route>
           </Switch>
           <Footer>
-            By Henry Chen 😁
+            😎 The Noisy Guts Project 😁
           </Footer>
         </AppDiv>
       </Router>
