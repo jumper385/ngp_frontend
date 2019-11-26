@@ -6,7 +6,6 @@ import styled from 'styled-components'
 
 const PageHeader = styled.div`
     box-sizing:border-box
-    padding:0 32pt
     margin:0
 `
 
@@ -29,7 +28,6 @@ const PrimaryButton = styled.button`
     color:white
     height:32pt
     border-radius:16pt
-    padding:0 32pt;
     display:flex
     justify-content:center
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.18);
@@ -46,9 +44,7 @@ const Icon = styled.i`
     padding:0
 `
 
-const FormInput = styled.form`
-    padding:0 32pt
-`
+const FormInput = styled.form``
 
 const TextInput = styled.input`
     height:32pt

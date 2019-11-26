@@ -9,6 +9,7 @@ import Overall from './pages/Overall';
 const AppDiv = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
   font-family: 'Poppins', sans-serif;
+  padding:0 32pt
 `
 
 const Banner = styled.div`
