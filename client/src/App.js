@@ -60,7 +60,7 @@ class App extends Component {
             <StyleLink to='/'>Home</StyleLink>
             <StyleLink to='/recording'>Start Recording</StyleLink>
             <StyleLink to='/'>Some Random Link</StyleLink>
-            <StyleLink to='/'>Like and Sub👍</StyleLink>
+            <StyleLink to='/'>Like and Sub 👍</StyleLink>
           </NavBar>
   
           <Switch>

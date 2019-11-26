@@ -1,10 +1,64 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReactDOM from 'react-dom';
 import axios from 'axios'
 import { Link } from 'react-router-dom' 
 
-const initialState = {}
+import styled from 'styled-components'
+
+const PageTitle = styled.h1`
+    font-size:30pt
+    text-align:center
+`
+
+const RecordingId = styled.p`
+    font-size:12pt
+    color:rgba(0,0,0,.24);
+    text-align:center
+    margin:0
+    margin-top:24pt
+`
+
+const PrimaryButton = styled.button`
+    border:none
+    background: linear-gradient(to bottom, #FF5252 0%, #F50057 100%);
+    color:white
+    height:32pt
+    border-radius:16pt
+    padding:0 32pt;
+    display:flex
+    justify-content:center
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.18);
+    transition: 0.25s
+    margin:0 auto
+
+    &:hover{
+        box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.18);
+    }
+`
+
+const Icon = styled.i`
+    margin:0
+    padding:0
+`
+
+const FormInput = styled.form`
+    padding:32pt
+`
+
+const TextInput = styled.input`
+    height:32pt
+    border-radius:6pt
+    padding: 0 8pt
+    width:100%
+    box-sizing:border-box
+    border: 1px solid rgba(0,0,0,0.18)
+`
+
+const SliderInput = styled.input`
+    height:32pt
+    box-sizing:border-box
+    width:100%
+`
 
 class Recording extends Component {
 
@@ -45,16 +99,16 @@ class Recording extends Component {
     render(){
         return(
             <div>
-                <h1>Recording Station 🎙</h1>
-                <button onClick={this.toggleRecording}>{this.props.recording.isRecording ? '🛑 Stop Recording': '⏺ Start Recording'}</button>
-                <p>RECORDING ID: {this.props.recording.isRecording ? this.props.recording.recording_id : 'not recording'}</p>
-                <form onSubmit={this.onSubmitSymptom}>
-                    <label>Symptom: </label> <input onChange={this.onFormChange} name='symptom' type='text' value={this.props.newLog.symptom}></input> <br/>
-                    <label>Severity: </label> <input onChange={this.onFormChange} name='severity' type='range' value={this.props.newLog.severity} min='0' max='10'></input> <br/>
-                    <label>Location: </label> <input onChange={this.onFormChange} name='location' type='text' value={this.props.newLog.location} /> <br/>
-                    <label>Notes: </label> <input onChange={this.onFormChange} name='notes' type='text' value={this.props.newLog.notes} /> <br/>
-                    <input type='submit'/>
-                </form>
+                <PageTitle>Recording Station 🎙</PageTitle>
+                <PrimaryButton onClick={this.toggleRecording}>{this.props.recording.isRecording ? <Icon className="material-icons">stop</Icon>: <Icon className="material-icons">fiber_manual_record</Icon>}</PrimaryButton>
+                <RecordingId>Recording ID: {this.props.recording.isRecording ? this.props.recording.recording_id : 'not recording'}</RecordingId>
+                <FormInput onSubmit={this.onSubmitSymptom}>
+                    <label><p>Symptom</p> </label> <TextInput onChange={this.onFormChange} name='symptom' type='text' value={this.props.newLog.symptom}/> <br/>
+                    <label><p>Severity</p> </label> <SliderInput onChange={this.onFormChange} name='severity' type='range' value={this.props.newLog.severity} min='0' max='10' /> <br/>
+                    <label><p>Location</p> </label> <TextInput onChange={this.onFormChange} name='location' type='text' value={this.props.newLog.location} /> <br/>
+                    <label><p>Notes</p> </label> <TextInput onChange={this.onFormChange} name='notes' type='text' value={this.props.newLog.notes} /> <br/>
+                    <input type='submit' value='Add Log'/>
+                </FormInput>
                 <div>
                     { !this.props.recording.isRecording ? <Link to='/overall'>Rate Overall Feelings</Link> : 'look here when you finish recording!' }
                 </div>
