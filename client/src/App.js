@@ -52,9 +52,9 @@ class App extends Component {
       <Router>
         <AppDiv className="App">
 
-          <Banner>
+          {/* <Banner>
             <Title>The Noisy Guts Project</Title>
-          </Banner>
+          </Banner> */}
   
           {/* <NavBar>
             <StyleLink to='/'>Home</StyleLink>
