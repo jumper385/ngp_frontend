@@ -4,6 +4,24 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 
+const PageHeader = styled.div`
+    box-sizing:border-box
+    margin:0
+`
+
+const PageTitle = styled.h1`
+    font-size:30pt
+    text-align:center
+`
+
+const RecordingId = styled.p`
+    font-size:12pt
+    color:rgba(0,0,0,.24);
+    text-align:center
+    margin:0
+    margin-top:24pt
+`
+
 const SliderInput = styled.input`
     width:100%
 `
@@ -20,8 +38,14 @@ const ActionBox = styled.div`
     background:pink
     height:32pt
     margin-top:24pt
-    background: linear-gradient(to bottom, #64FFDA 0%, #1DE9B6 100%);
+    background: linear-gradient(to bottom, #00E676 0%, #1DE9B6 100%);
     border-radius: 16pt 
+
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.18);
+    transition: 0.25s
+    &:hover{
+        box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.18);
+    }
 `
 const SubmitButton = styled.input`
     width:100%
@@ -102,8 +126,10 @@ class Overall extends Component {
         }
         return(
             <div>
-                <h1>😎 Overall 🎙</h1>
-                <p>{this.props.recording.recording_id || 'NO ID ATM...'}</p>
+                <div>
+                    <PageTitle>😎 Overall 🎙</PageTitle>
+                    <RecordingId>{this.props.recording.recording_id || 'NO ID ATM...'}</RecordingId>
+                </div>
                 <form onSubmit={this.onSubmit}>
                     <label><p>Overall Symptoms</p></label> <SliderInput onChange={this.onChange} name='overall' type='range' min='0' max='10'/> <br/>
                     <label><p>Abdominal Pain</p></label> <SliderInput onChange={this.onChange} name='abdPain' type='range' min='0' max='10'/> <br/>
