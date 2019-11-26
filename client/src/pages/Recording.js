@@ -65,8 +65,7 @@ const SliderInput = styled.input`
     width:100%
 `
 
-const AddLog = styled.input`
-    margin-top:24pt
+const AddLog = styled.button`
     height:32pt
     border:none
     border-radius:16pt
@@ -80,6 +79,32 @@ const AddLog = styled.input`
     &:hover{
         box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.18);
     }
+`
+
+const RateOverallButton = styled(Link)`
+    background: linear-gradient(to bottom, #00E676 0%, #1DE9B6 100%);
+    text-decoration:none
+    color:white
+    font-weight:600
+    height:100%
+    width:100%
+    display:flex;
+    justify-content:center
+    align-items:center
+    border-radius:16pt
+
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.18);
+    transition: 0.25s
+    &:hover{
+        box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.18);
+    }
+`
+
+const Submissions = styled.div`
+    text-align:center
+    height:32pt
+    margin-top:24pt
+    padding:0 32pt
 `
 
 class Recording extends Component {
@@ -119,10 +144,29 @@ class Recording extends Component {
     }
 
     render(){
+
+        const ButtonChange = (props) => {
+            const { isRecording } = props
+            console.log(isRecording)
+            if(isRecording){
+                return(
+                    <Submissions>
+                        <AddLog onSubmit={this.onSubmitSymptom}>Add Log</AddLog>
+                    </Submissions>
+                )
+            } else {
+                return(
+                    <Submissions>
+                        <RateOverallButton to='/overall'>Rate Overall Feelings</RateOverallButton>
+                    </Submissions>
+                )
+            }
+        }
+
         return(
             <div>
                 <PageHeader>
-                    <PageTitle>🎙🎧📑</PageTitle>
+                    <PageTitle>🎙 🎧 📑</PageTitle>
                     <PrimaryButton onClick={this.toggleRecording}>{this.props.recording.isRecording ? <Icon className="material-icons">stop</Icon>: <Icon className="material-icons">fiber_manual_record</Icon>}</PrimaryButton>
                     <RecordingId>Recording ID: {this.props.recording.isRecording ? this.props.recording.recording_id : 'not recording'}</RecordingId>
                 </PageHeader>
@@ -131,11 +175,9 @@ class Recording extends Component {
                     <label><p>Severity</p> </label> <SliderInput onChange={this.onFormChange} name='severity' type='range' value={this.props.newLog.severity} min='0' max='10' /> <br/>
                     <label><p>Location</p> </label> <TextInput onChange={this.onFormChange} name='location' type='text' value={this.props.newLog.location} /> <br/>
                     <label><p>Notes</p> </label> <TextInput onChange={this.onFormChange} name='notes' type='text' value={this.props.newLog.notes} /> <br/>
-                    <AddLog type='submit' value='Add Log'/>
+                    {/* <AddLog type='submit' value='Add Log'/> */}
+                    <ButtonChange {...this.props.recording}/>
                 </FormInput>
-                <div>
-                    { !this.props.recording.isRecording ? <Link to='/overall'>Rate Overall Feelings</Link> : 'look here when you finish recording!' }
-                </div>
             </div>
         )
     }
