@@ -6,7 +6,8 @@ import styled from 'styled-components'
 
 const PageHeader = styled.div`
     box-sizing:border-box
-    padding:32pt
+    padding:0 32pt
+    margin:0
 `
 
 const PageTitle = styled.h1`
@@ -46,7 +47,7 @@ const Icon = styled.i`
 `
 
 const FormInput = styled.form`
-    padding:32pt
+    padding:0 32pt
 `
 
 const TextInput = styled.input`
