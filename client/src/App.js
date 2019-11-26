@@ -32,6 +32,14 @@ const StyleLink = styled(Link)`
   text-decoration:none
 `
 
+const Footer = styled.footer`
+    margin-top:24pt
+    height:32pt
+    display:flex
+    align-items:center
+    justify-content:center
+`
+
 class App extends Component {
 
   componentDidMount(){
@@ -68,7 +76,9 @@ class App extends Component {
             <Route exact path='/recording'> <Recording /></Route> 
             <Route exact path='/overall'> <Overall /></Route>
           </Switch>
-  
+          <Footer>
+            By Henry Chen 😁
+          </Footer>
         </AppDiv>
       </Router>
     );

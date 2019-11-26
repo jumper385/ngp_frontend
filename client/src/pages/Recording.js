@@ -104,7 +104,6 @@ const Submissions = styled.div`
     text-align:center
     height:32pt
     margin-top:24pt
-    padding:0 32pt
 `
 
 class Recording extends Component {
